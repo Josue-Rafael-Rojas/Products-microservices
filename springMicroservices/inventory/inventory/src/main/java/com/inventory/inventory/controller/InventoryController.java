@@ -129,7 +129,6 @@ public class InventoryController {
         try {
             InventoryDto inventory = inventoryService.getInventoryWithProduct(productId);
 
-            // El ResourceConverter manejará automáticamente la sección included
             JSONAPIDocument<InventoryDto> responseDoc = new JSONAPIDocument<>(inventory);
             byte[] jsonApiResponse = resourceConverter.writeDocument(responseDoc);
 

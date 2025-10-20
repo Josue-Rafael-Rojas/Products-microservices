@@ -54,7 +54,6 @@ public class InventoryListener {
                     log.warn("Low stock alert! Only {} units remaining", currentQuantity);
                 }
             } else {
-                // Es una reposición de inventario
                 log.info("-----------Restock Event--------------");
                 log.info("Product ID: {}", inventory.getProductId());
                 log.info("Units added: {}", delta);

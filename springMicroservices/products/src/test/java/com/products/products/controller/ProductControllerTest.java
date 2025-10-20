@@ -69,7 +69,6 @@ class ProductControllerTest {
 
     @Test
     void createProduct_Success() throws Exception {
-        // Arrange
         ProductRequest request = new ProductRequest();
         request.setName("Test Product");
         request.setPrice(new BigDecimal("99.99"));
@@ -77,7 +76,7 @@ class ProductControllerTest {
         ProductDto mockResponse = createMockProductDto();
         when(productService.createProduct(any(ProductRequest.class))).thenReturn(mockResponse);
 
-        // Act & Assert
+
         mockMvc.perform(post("/v1/products")
                 .header("Authorization", securityToken)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,10 +91,10 @@ class ProductControllerTest {
 
     @Test
     void createProduct_InvalidData() throws Exception {
-        // Arrange
+
         ProductRequest request = new ProductRequest(); // Sin datos obligatorios
 
-        // Act & Assert
+
         mockMvc.perform(post("/v1/products")
                 .header("Authorization", securityToken)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +104,7 @@ class ProductControllerTest {
 
     @Test
     void getAllProducts_Success() throws Exception {
-        // Arrange
+
         ProductDto product1 = createMockProductDto();
         ProductDto product2 = createMockProductDto();
         List<ProductDto> products = Arrays.asList(product1, product2);
@@ -113,7 +112,7 @@ class ProductControllerTest {
 
         when(productService.getAllProduct(any())).thenReturn(page);
 
-        // Act & Assert
+
         mockMvc.perform(get("/v1/products")
                 .header("Authorization", securityToken)
                 .accept(MediaType.parseMediaType(CONTENT_TYPE)))
@@ -133,11 +132,11 @@ class ProductControllerTest {
 
     @Test
     void getProductById_Success() throws Exception {
-        // Arrange
+
         ProductDto mockResponse = createMockProductDto();
         when(productService.getProductById(any())).thenReturn(mockResponse);
 
-        // Act & Assert
+
         mockMvc.perform(get("/v1/products/" + mockResponse.getUuid())
                 .header("Authorization", securityToken)
                 .accept(MediaType.parseMediaType(CONTENT_TYPE)))
@@ -151,10 +150,9 @@ class ProductControllerTest {
 
     @Test
     void getProductById_NotFound() throws Exception {
-        // Arrange
+
         when(productService.getProductById(any())).thenThrow(new RuntimeException("Product not found"));
 
-        // Act & Assert
         mockMvc.perform(get("/v1/products/" + UUID.randomUUID())
                 .header("Authorization", securityToken)
                 .accept(MediaType.parseMediaType(CONTENT_TYPE)))
@@ -163,7 +161,6 @@ class ProductControllerTest {
 
     @Test
     void updateProduct_Success() throws Exception {
-        // Arrange
         ProductRequest request = new ProductRequest();
         request.setName("Updated Product");
         request.setPrice(new BigDecimal("149.99"));
@@ -174,7 +171,7 @@ class ProductControllerTest {
 
         when(productService.updateProduct(any(), any())).thenReturn(mockResponse);
 
-        // Act & Assert
+
         mockMvc.perform(patch("/v1/products/" + UUID.randomUUID())
                 .header("Authorization", securityToken)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -189,10 +186,10 @@ class ProductControllerTest {
 
     @Test
     void deleteProduct_Success() throws Exception {
-        // Arrange
+
         when(productService.deleteClient(any())).thenReturn(true);
 
-        // Act & Assert
+
         mockMvc.perform(delete("/v1/products/" + UUID.randomUUID())
                 .header("Authorization", securityToken))
                 .andExpect(status().isNoContent());
@@ -200,10 +197,8 @@ class ProductControllerTest {
 
     @Test
     void deleteProduct_NotFound() throws Exception {
-        // Arrange
         when(productService.deleteClient(any())).thenReturn(false);
 
-        // Act & Assert
         mockMvc.perform(delete("/v1/products/" + UUID.randomUUID())
                 .header("Authorization", securityToken))
                 .andExpect(status().isNotFound());

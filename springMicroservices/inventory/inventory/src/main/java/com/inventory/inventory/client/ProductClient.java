@@ -15,3 +15,6 @@ public interface ProductClient {
     @GetMapping(value = "/v1/products/{uuid}", produces = "application/vnd.api+json")
     byte[] getProductById(@PathVariable("uuid") UUID uuid, @RequestHeader("Authorization") String bearerToken);
 }
+
+
+

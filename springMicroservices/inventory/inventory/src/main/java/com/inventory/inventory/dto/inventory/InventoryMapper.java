@@ -39,7 +39,6 @@ public interface InventoryMapper {
     @AfterMapping
     default void mapLinks(Inventory inventory, @MappingTarget InventoryDto inventoryDto) {
         if (inventory != null && inventory.getUuid() != null) {
-            // Links para el recurso principal (inventory)
             Links resourceLinks = new Links();
             String selfUrl = "http://localhost:8081/v1/inventory/" + inventory.getUuid();
             resourceLinks.addLink("self", new Link(selfUrl));
