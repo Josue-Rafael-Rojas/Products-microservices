@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  mvc:
+    contentnegotiation:
+      media-types:
+        json-api: application/vnd.api+json
+      default-content-type: application/vnd.api+json
+  main:
+    allow-bean-definition-overriding: true
+
+app:
+  productToken: "aR4vN8xK2qT5jL1sP7mF0wD6yG3bH9cZ2uV8nE5kS0oQ7pY1rM4tW6fC3dJ9lX0"
+  tokenSecurity: "Xf9G7qP3vL2R8kZs4nM1bYwQ6aT0jH5eC8dV3rL9pF2uN7xK1mBzA4sQ6yW0tE3o"
