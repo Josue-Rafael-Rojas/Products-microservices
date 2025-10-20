@@ -1,4 +1,4 @@
-package com.inventory.inventory.service;
+package com.inventory.inventory.service.inventory;
 
 import com.inventory.inventory.dto.inventory.InventoryDto;
 import com.inventory.inventory.dto.inventory.InventoryRequest;

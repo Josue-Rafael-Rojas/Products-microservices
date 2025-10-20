@@ -1,4 +1,5 @@
 app:
+  tokenSecurity: "aR4vN8xK2qT5jL1sP7mF0wD6yG3bH9cZ2uV8nE5kS0oQ7pY1rM4tW6fC3dJ9lX0"
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
