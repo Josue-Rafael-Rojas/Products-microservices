@@ -17,6 +17,15 @@ El sistema está compuesto por dos microservicios principales:
    - Se comunica con el Servicio de Productos para obtener información
    - Implementa emisión de eventos para cambios en el inventario
    - Maneja la validación de inventario y gestión de errores
+### Documentación de la API con OpenAPI/Swagger
+
+- Todas las APIs de Productos e Inventario están documentadas usando **OpenAPI/Swagger**.
+- La documentación interactiva permite explorar endpoints, parámetros, modelos de datos y probar solicitudes directamente desde el navegador.
+- Acceso a la documentación:
+  - **Servicio de Productos:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+  - **Servicio de Inventario:** [http://localhost:8081/swagger-ui.html](http://localhost:8081/swagger-ui.html)
+
+   
 
 ### Stack Tecnológico
 
