@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.HttpStatus;
 
+import javax.naming.AuthenticationException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +61,22 @@ public class ControllerAdvice {
                 .code("INV-4002")
                 .timestamp(LocalDateTime.now())
                 .description(excep.getMessage())
+                .exception(excep.getClass().getSimpleName())
+                .build();
+
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
+
+
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ErrorDto> handleSecurityException(SecurityException excep, HttpServletRequest request) {
+        var apiError = ErrorDto
+                .builder()
+                .requestUrl(request.getRequestURI())
+                .code("SR-1002")
+                .timestamp(LocalDateTime.now())
+                .description("Error de seguridad: " + excep.getMessage())
                 .exception(excep.getClass().getSimpleName())
                 .build();
 

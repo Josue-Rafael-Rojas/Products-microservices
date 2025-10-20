@@ -1,4 +1,4 @@
-package com.products.products.service.Impl;
+package com.products.products.service.product.Impl;
 
 import com.products.products.dto.product.ProductDto;
 import com.products.products.dto.product.ProductMapper;
@@ -7,17 +7,13 @@ import com.products.products.exception.ProductNotFoundException;
 import com.products.products.exception.UuidInvalidException;
 import com.products.products.model.Product;
 import com.products.products.repository.ProductRepository;
-import com.products.products.service.ProductService;
-import org.springframework.http.HttpStatus;
+import com.products.products.service.product.ProductService;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
+
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {

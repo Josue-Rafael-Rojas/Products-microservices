@@ -46,7 +46,6 @@ public class InventoryListener {
         int delta = currentQuantity - oldQuantity;
         if(delta != 0){
             if (delta < 0) {
-                // Es una compra (reducción de inventario)
                 log.info("-----------Purchase Event--------------");
                 log.info("Product ID: {}", inventory.getProductId());
                 log.info("Units purchased: {}", Math.abs(delta));

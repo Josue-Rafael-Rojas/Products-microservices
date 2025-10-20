@@ -1,8 +1,7 @@
-package com.inventory.inventory.service.impl;
+package com.inventory.inventory.service.inventory.impl;
 
 import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.github.jasminb.jsonapi.ResourceConverter;
-import com.github.jasminb.jsonapi.exceptions.DocumentSerializationException;
 import com.inventory.inventory.client.ProductClient;
 import com.inventory.inventory.dto.inventory.InventoryDto;
 import com.inventory.inventory.dto.inventory.InventoryMapper;
@@ -11,19 +10,15 @@ import com.inventory.inventory.dto.product.ProductDto;
 import com.inventory.inventory.dto.purchase.PurchaseDto;
 import com.inventory.inventory.exception.InsufficientStockException;
 import com.inventory.inventory.exception.InventoryByProductUuidNotFoundException;
-import com.inventory.inventory.exception.ProductDeserializationException;
 import com.inventory.inventory.exception.ProductServiceException;
 import com.inventory.inventory.exception.UuidInvalidException;
 import com.inventory.inventory.model.Inventory;
 import com.inventory.inventory.repository.InventoryRepository;
-import com.inventory.inventory.service.InventoryService;
+import com.inventory.inventory.service.inventory.InventoryService;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,13 +26,14 @@ import java.util.UUID;
 @AllArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
 
+
     private final InventoryRepository inventoryRepository;
     private final InventoryMapper inventoryMapper;
     private final ProductClient productClient;
     private final ResourceConverter resourceConverter;
 
     private ProductDto getProductDto(UUID productId) {
-        byte[] responseProduct = productClient.getProductById(productId);
+        byte[] responseProduct = productClient.getProductById(productId, "Bearer aR4vN8xK2qT5jL1sP7mF0wD6yG3bH9cZ2uV8nE5kS0oQ7pY1rM4tW6fC3dJ9lX0");
         try {
             JSONAPIDocument<ProductDto> document = resourceConverter.readDocument(responseProduct, ProductDto.class);
             return document.get();

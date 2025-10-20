@@ -96,5 +96,19 @@ public class ControllerAdvice {
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ErrorDto> handleSecurityException(SecurityException excep, HttpServletRequest request) {
+        var apiError = ErrorDto
+                .builder()
+                .requestUrl(request.getRequestURI())
+                .code("SR-1002")
+                .timestamp(LocalDateTime.now())
+                .description("Error de seguridad: " + excep.getMessage())
+                .exception(excep.getClass().getSimpleName())
+                .build();
+
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
 
 }
