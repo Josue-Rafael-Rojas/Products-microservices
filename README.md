@@ -1,4 +1,4 @@
-#  Microservicios de productos
+#  Microservicios de productos e inventario
 
 Este proyecto consiste en dos microservicios construidos con Spring Boot que interactúan entre sí utilizando el estándar JSON API para la comunicación. Los microservicios gestionan productos y su inventario en una arquitectura por capas.
 
