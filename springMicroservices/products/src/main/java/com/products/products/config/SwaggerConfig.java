@@ -13,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "MICROSERVICES PRODUCTS - LINKTIC",
+                title = "MICROSERVICIO PRODUCTS - LINKTIC",
                 description = "Esta api fue desarrollada para la prueba tecnica enviada por linktic",
                 version = "1.0.0",
                 contact = @Contact(
