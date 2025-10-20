@@ -72,15 +72,12 @@ public class InventoryController {
     )
     public ResponseEntity<byte[]> createClient(@RequestBody @Valid InventoryRequest inventoryRequest) {
         try {
-            // 1. Service retorna ProductDto
             InventoryDto createdInventory = inventoryService.createInventory(inventoryRequest);
 
-            // 2. Serializar ProductDto → JSON:API
             JSONAPIDocument<InventoryDto> responseDoc = new JSONAPIDocument<>(createdInventory);
 
             byte[] jsonApiResponse = resourceConverter.writeDocument(responseDoc);
 
-            // 3. Retornar
             return ResponseEntity
                     .status(201)
                     .header("Content-Type", "application/vnd.api+json")

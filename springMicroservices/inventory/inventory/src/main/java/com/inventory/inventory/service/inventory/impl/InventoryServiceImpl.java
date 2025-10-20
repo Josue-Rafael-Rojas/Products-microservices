@@ -18,6 +18,7 @@ import com.inventory.inventory.service.inventory.InventoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -33,10 +34,12 @@ public class InventoryServiceImpl implements InventoryService {
     private final ResourceConverter resourceConverter;
 
     private ProductDto getProductDto(UUID productId) {
-        byte[] responseProduct = productClient.getProductById(productId, "Bearer aR4vN8xK2qT5jL1sP7mF0wD6yG3bH9cZ2uV8nE5kS0oQ7pY1rM4tW6fC3dJ9lX0");
         try {
+            byte[] responseProduct = productClient.getProductById(productId, "Bearer aR4vN8xK2qT5jL1sP7mF0wD6yG3bH9cZ2uV8nE5kS0oQ7pY1rM4tW6fC3dJ9lX0");
             JSONAPIDocument<ProductDto> document = resourceConverter.readDocument(responseProduct, ProductDto.class);
             return document.get();
+        } catch (ResourceAccessException e) {
+            throw new ProductServiceException(e);
         } catch (Exception e) {
             throw new ProductServiceException(e);
         }
@@ -45,6 +48,8 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public InventoryDto createInventory(InventoryRequest inventoryRequest) {
         UUID idProduct = inventoryRequest.getProductId();
+        ProductDto productDto = getProductDto(idProduct);
+
         Optional<Inventory> inventoryExists = inventoryRepository.findByProductId(idProduct);
 
         if(inventoryExists.isPresent()){
@@ -55,7 +60,7 @@ public class InventoryServiceImpl implements InventoryService {
         inventory = inventoryRepository.save(inventory);
 
         InventoryDto inventoryDto = inventoryMapper.toDto(inventory);
-        inventoryDto.setProduct(getProductDto(idProduct));
+        inventoryDto.setProduct(productDto);
 
         return inventoryDto;
     }
@@ -107,6 +112,8 @@ public class InventoryServiceImpl implements InventoryService {
             throw new UuidInvalidException(idProduct);
         }
 
+        ProductDto productDto = getProductDto(productId);
+
 
         Inventory inventory = inventoryRepository.findByProductId(productId)
                 .orElseThrow(() -> new InventoryByProductUuidNotFoundException(productId));
@@ -120,7 +127,7 @@ public class InventoryServiceImpl implements InventoryService {
         inventory = inventoryRepository.save(inventory);
         
         InventoryDto inventoryDto = inventoryMapper.toDto(inventory);
-        inventoryDto.setProduct(getProductDto(productId));
+        inventoryDto.setProduct(productDto);
 
         return inventoryDto;
     }
