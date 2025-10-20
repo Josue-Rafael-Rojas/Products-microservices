@@ -1,0 +1,41 @@
+app:
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/microservices
+    username: postgres
+    password: 123456789
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  http:
+    multipart:
+      max-request-size: 10MB
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        format_sql: true
+        jdbc:
+          time_zone: America/Bogota
+      org:
+        hibernate:
+          envers:
+            default_schema: public
+            store_data_at_delete: true
+  output:
+    ansi:
+      enabled: ALWAYS
+server:
+  tomcat:
+    max-swallow-size: 10MB
+    max-http-form-post-size: 10MB
+  error:
+    #    include-stacktrace: always
+    include-message: always
