@@ -158,7 +158,6 @@ public class InventoryServiceImpl implements InventoryService {
                 });
 
         logger.info("Current inventory quantity: {}", inventory.getQuantity());
-        // Validar stock suficiente
         if (inventory.getQuantity() < purchaseDto.getQuantitySold()) {
             logger.error("Insufficient stock for product: {}. Required: {}, Available: {}", 
                 productDto.getName(), purchaseDto.getQuantitySold(), inventory.getQuantity());

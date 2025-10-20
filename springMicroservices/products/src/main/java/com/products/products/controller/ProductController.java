@@ -214,11 +214,11 @@ public class ProductController {
     public ResponseEntity<byte[]> getProductById(@PathVariable String uuid) {
         ProductDto product = productService.getProductById(uuid);
         try {
-            // 2. Serializar ProductDto → JSON:API
+
             JSONAPIDocument<ProductDto> responseDoc = new JSONAPIDocument<>(product);
             byte[] jsonApiResponse = resourceConverter.writeDocument(responseDoc);
 
-            // 3. Retornar
+
             return ResponseEntity
                     .ok()
                     .header("Content-Type", "application/vnd.api+json")
